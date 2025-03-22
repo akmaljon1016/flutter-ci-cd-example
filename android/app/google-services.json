@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "158385759162",
+    "project_id": "fir-ci-cd-example",
+    "storage_bucket": "fir-ci-cd-example.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158385759162:android:366cd594873a7ab0c3b383",
+        "android_client_info": {
+          "package_name": "com.global_solution.ci_cd_example"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy3m1_HF0Z8auyjAo7NYzAKk3tqB20E00"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
