@@ -58,16 +58,16 @@ jobs:
         run: |
           flutter build apk
 
-      # 12.
-      - name: Flutter build ipa
-        run: |
-          flutter build ipa --no-codesign
-
-      # 13.
-      - name: Compress Archives and IPAs
-        run: |
-          cd build
-          tar -czf ios_build.tar.gz ios
+#      # 12.
+#      - name: Flutter build ipa
+#        run: |
+#          flutter build ipa --no-codesign
+#
+#      # 13.
+#      - name: Compress Archives and IPAs
+#        run: |
+#          cd build
+#          tar -czf ios_build.tar.gz ios
 
       # 14.
       - name: Upload Artifacts
@@ -76,4 +76,17 @@ jobs:
           name: Releases
           path: |
             build/app/outputs/flutter-apk/app-release.apk
-            build/ios_build.tar.gz
+#            build/ios_build.tar.gz
+
+      - name: Upload APK to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: 1:158385759162:android:366cd594873a7ab0c3b383
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+          groups: testers
+          file: build/app/outputs/flutter-apk/app-release.apk
+          releaseNotes: |
+            Changes in this build:
+            - Automated build from GitHub Actions
+            - Branch: ${{ github.ref_name }}
+            - Commit: ${{ github.sha }}
