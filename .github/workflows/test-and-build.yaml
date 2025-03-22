@@ -58,16 +58,16 @@ jobs:
         run: |
           flutter build apk
 
-#      # 12.
-#      - name: Flutter build ipa
-#        run: |
-#          flutter build ipa --no-codesign
-#
-#      # 13.
-#      - name: Compress Archives and IPAs
-#        run: |
-#          cd build
-#          tar -czf ios_build.tar.gz ios
+      #      # 12.
+      #      - name: Flutter build ipa
+      #        run: |
+      #          flutter build ipa --no-codesign
+      #
+      #      # 13.
+      #      - name: Compress Archives and IPAs
+      #        run: |
+      #          cd build
+      #          tar -czf ios_build.tar.gz ios
 
       # 14.
       - name: Upload Artifacts
@@ -76,23 +76,26 @@ jobs:
           name: Releases
           path: |
             build/app/outputs/flutter-apk/app-release.apk
-#            build/ios_build.tar.gz
+      #            build/ios_build.tar.gz
 
+      # 15. Create service account file first
+      - name: Create service account file
+        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}' > ${{ runner.temp }}/service-account.json
+
+      # 16. Setup Firebase CLI
       - name: Setup Firebase CLI
         run: npm install -g firebase-tools
 
+      # 17. Upload APK to Firebase App Distribution using CI token
       - name: Upload APK to Firebase App Distribution
         run: |
-            firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk \
-              --app 1:158385759162:android:366cd594873a7ab0c3b383 \
-              --groups "testers" \
-              --release-notes "Changes in this build:
-              - Automated build from GitHub Actions
-              - Branch: ${{ github.ref_name }}
-              - Commit: ${{ github.sha }}"
+          firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk \
+            --app 1:158385759162:android:366cd594873a7ab0c3b383 \
+            --groups "testers" \
+            --token "${{ secrets.FIREBASE_TOKEN }}" \
+            --release-notes "Changes in this build:
+            - Automated build from GitHub Actions
+            - Branch: ${{ github.ref_name }}
+            - Commit: ${{ github.sha }}"
         env:
-         GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/service-account.json
-            
-            # Create service account file (before Firebase CLI step)
-      - name: Create service account file
-        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}' > ${{ runner.temp }}/service-account.json
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/service-account.json
