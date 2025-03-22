@@ -90,7 +90,7 @@ jobs:
       - name: Upload APK to Firebase App Distribution
         run: |
           firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk \
-            --app 1:158385759162:android:366cd594873a7ab0c3b383 \
+            --app "${{ secrets.FIREBASE_APP_ID }}" \
             --token "${{ secrets.FIREBASE_TOKEN }}" \
             --release-notes "Changes in this build:
             - Automated build from GitHub Actions
