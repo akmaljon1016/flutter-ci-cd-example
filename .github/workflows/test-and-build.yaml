@@ -98,3 +98,15 @@ jobs:
             - Commit: ${{ github.sha }}"
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/service-account.json
+      # Add this step after your Firebase distribution step
+      # 18. Send APK to Telegram
+      - name: Send APK to Telegram
+        uses: appleboy/telegram-action@v0.1.1
+        with:
+          to: -4622151301
+          token: 7610690412:AAH-10MNxScho20cpJy2mYqCEYWhli8jskM
+          message: |
+            ✅ New build completed!
+            Branch: ${{ github.ref_name }}
+            Commit: ${{ github.sha }}
+          document: build/app/outputs/flutter-apk/app-release.apk
