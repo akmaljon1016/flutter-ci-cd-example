@@ -105,7 +105,7 @@ jobs:
         run: |
           curl -F document=@"build/app/outputs/flutter-apk/app-release.apk" \
                -F caption="✅ New build completed! Branch: ${{ github.ref_name }}, Commit: ${{ github.sha }}" \
-               https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument?chat_id=${{ secrets.TELEGRAM_TO }}
+               https://api.telegram.org/bot7610690412:AAH-10MNxScho20cpJy2mYqCEYWhli8jskM/sendDocument?chat_id=-4622151301
         env:
           TELEGRAM_TOKEN: 7610690412:AAH-10MNxScho20cpJy2mYqCEYWhli8jskM
           TELEGRAM_TO: -4622151301
