@@ -101,7 +101,7 @@ jobs:
       # Add this step after your Firebase distribution step
       # 18. Send APK to Telegram
       - name: Send APK to Telegram
-        uses: appleboy/telegram-action@v0.1.1
+        uses: xinthink/action-telegram@v1.1
         with:
           to: -4622151301
           token: 7610690412:AAH-10MNxScho20cpJy2mYqCEYWhli8jskM
